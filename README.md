@@ -77,7 +77,7 @@ Deployed using **GitHub Pages** — fully responsive and ready to explore!
 
 ## 💡 Tech Stack
 
-- **Frontend:** HTML, CSS, JavaScript (Vanilla)
+- **Frontend:** HTML, CSS, JavaScript, Bootstrap, Typescript, Spline
 - **Design:** Responsive modern UI with clean typography, soft shadows, and subtle transitions.
 - **Effects:** Smooth hover effects, page transitions, countdown timers for flagship events.
 - **Extras:** Dark mode toggle (optional), sticky nav, reusable components for cards & modals.
