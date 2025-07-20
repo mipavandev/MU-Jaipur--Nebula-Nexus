@@ -34,7 +34,6 @@ class ThemeManager {
 
     initTheme() {
         const savedTheme = localStorage.getItem('theme') || 'light';
-        console.log('Initializing theme:', savedTheme);
         this.setTheme(savedTheme);
     }
 
@@ -43,17 +42,12 @@ class ThemeManager {
         document.documentElement.setAttribute('data-theme', theme);
         localStorage.setItem('theme', theme);
         
-        if (elements.themeToggle) {
-            const icon = elements.themeToggle.querySelector('i');
-            if (icon) {
-                icon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
-            }
-        }
+        const icon = elements.themeToggle.querySelector('i');
+        icon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
     }
 
     toggleTheme() {
         const newTheme = AppState.currentTheme === 'light' ? 'dark' : 'light';
-        console.log('Toggling theme from', AppState.currentTheme, 'to', newTheme);
         this.setTheme(newTheme);
         
         // Add celebration effect
@@ -98,9 +92,7 @@ class ThemeManager {
     }
 
     bindEvents() {
-        if (elements.themeToggle) {
-            elements.themeToggle.addEventListener('click', () => this.toggleTheme());
-        }
+        elements.themeToggle?.addEventListener('click', () => this.toggleTheme());
     }
 }
 
@@ -515,10 +507,6 @@ window.openClubPage = function(clubPage) {
 // Initialize Application
 document.addEventListener('DOMContentLoaded', () => {
     console.log('🌌 Nebula Nexus initialized!');
-    
-    // Add debugging for theme toggle
-    const themeBtn = document.getElementById('themeToggle');
-    console.log('Theme button found:', !!themeBtn);
     
     // Initialize all managers
     new ThemeManager();
