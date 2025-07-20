@@ -1,73 +1,85 @@
-# Welcome to your Lovable project
+# 🌌 Nebula Nexus — Manipal University Campus Clubs Hub
 
-## Project info
+Welcome to **Nebula Nexus** — a vibrant, interactive website designed to showcase and manage **all campus club activities** at **Manipal University**. This project was built as part of **Problem Statement 5**: 
+*“Make a dashboard, profile page and events page for a website that talks about all campuses club activities.”*
+## 🚀 Live Demo
 
-**URL**: https://lovable.dev/projects/97571dd7-fc86-4bf1-88ed-7707356773b1
+🔗 **[👉 Click here to view Nebula Nexus live!](https://mipavandev.github.io/MU-Jaipur--Nebula-Nexus/index.html)**  
+Deployed using **GitHub Pages** — fully responsive and ready to explore!
 
-## How can I edit this code?
+---
 
-There are several ways of editing your application.
+## 📌 Project Overview
 
-**Use Lovable**
+**Nebula Nexus** brings together the entire spectrum of campus life under one beautifully designed portal. From sports to literature, dance to open mics — every club, event, and student detail is organized in one seamless experience.
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/97571dd7-fc86-4bf1-88ed-7707356773b1) and start prompting.
+---
 
-Changes made via Lovable will be committed automatically to this repo.
+## ✨ Key Features
 
-**Use your preferred IDE**
+### ✅ 1️⃣ **Dashboard**
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+- Dynamic landing page with a warm welcome banner.
+- Overview of all active clubs:  
+  - Sports Club  
+  - Literature Club  
+  - Dance Club  
+  - Open Mic Society  
+  - Technical & Coding Clubs  
+  - Art & Photography Societies — and more!
+- Each club card shows:
+  - Name & tagline
+  - Logo/icon
+  - Short description
+  - *Explore* button with smooth hover effects.
+- Highlights upcoming flagship events like **Nebula Nexus** with banners and countdowns.
+- Quick stats and spotlight for club coordinators & faculty in charge.
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+---
 
-Follow these steps:
+### ✅ 2️⃣ **Clubs Directory**
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+- A dedicated section with detailed info about each club.
+- Includes:
+  - Club mission & vision.
+  - Faculty advisor & student coordinators with contact info.
+  - Weekly meeting times, venue details, deadlines for signups.
+  - Photo gallery of past activities.
+- Fully responsive grid layout with beautiful cards and subtle transitions.
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+---
 
-# Step 3: Install the necessary dependencies.
-npm i
+### ✅ 3️⃣ **Events Page**
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+- Master calendar of all upcoming club events and competitions.
+- Filter events by type: Sports | Cultural | Literary | Technical | Open Mic | Dance.
+- Each event card includes:
+  - Event title & description.
+  - Organizer club.
+  - Date, time, and venue.
+  - Registration button.
+- Past events gallery to showcase highlights.
+- Smooth animations and hover states for an engaging experience.
 
-**Edit a file directly in GitHub**
+---
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+### ✅ 4️⃣ **Profile Page**
 
-**Use GitHub Codespaces**
+- Personalized hub for each student.
+- Shows:
+  - Student photo, name, department, year.
+  - Clubs joined & registered events.
+  - Weekly or monthly schedule for upcoming deadlines.
+  - Contact section to reach out to coordinators.
+- Clean, intuitive layout with a youthful vibe.
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+---
 
-## What technologies are used for this project?
+## 💡 Tech Stack
 
-This project is built with:
+- **Frontend:** HTML, CSS, JavaScript (Vanilla)
+- **Design:** Responsive modern UI with clean typography, soft shadows, and subtle transitions.
+- **Effects:** Smooth hover effects, page transitions, countdown timers for flagship events.
+- **Extras:** Dark mode toggle (optional), sticky nav, reusable components for cards & modals.
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/97571dd7-fc86-4bf1-88ed-7707356773b1) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+---
