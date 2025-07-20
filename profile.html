@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - Nebula Nexus</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👤</text></svg>">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .profile-hero {
+            padding: 120px 0 60px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+        }
+        
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            background: var(--bg-secondary);
+            padding: 2rem;
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--glass-border);
+        }
+        
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            background: var(--primary-gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--text-inverse);
+            position: relative;
+            box-shadow: var(--shadow-glow);
+        }
+        
+        .profile-avatar::after {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            background: var(--primary-gradient);
+            border-radius: 50%;
+            z-index: -1;
+            animation: rotate 3s linear infinite;
+        }
+        
+        .profile-info h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .profile-meta {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+        }
+        
+        .meta-item i {
+            color: var(--primary-color);
+        }
+        
+        .profile-stats {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .stat-item {
+            text-align: center;
+            background: var(--glass-bg);
+            padding: 1rem;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+            min-width: 100px;
+        }
+        
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            display: block;
+        }
+        
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+        }
+        
+        .profile-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .content-card {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-xl);
+            padding: 2rem;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--glass-border);
+        }
+        
+        .content-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .content-card h3 i {
+            color: var(--primary-color);
+        }
+        
+        .club-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--glass-bg);
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-full);
+            margin: 0.25rem;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+            transition: all var(--transition-normal);
+        }
+        
+        .club-badge:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .club-badge i {
+            color: var(--primary-color);
+        }
+        
+        .event-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--glass-bg);
+            border-radius: var(--radius-lg);
+            margin-bottom: 1rem;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+            transition: all var(--transition-normal);
+        }
+        
+        .event-item:hover {
+            transform: translateX(5px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .event-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-inverse);
+        }
+        
+        .event-details h4 {
+            margin-bottom: 0.25rem;
+            color: var(--text-primary);
+        }
+        
+        .event-details p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        .schedule-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+        
+        .schedule-table th,
+        .schedule-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--glass-border);
+        }
+        
+        .schedule-table th {
+            background: var(--glass-bg);
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        .schedule-table td {
+            color: var(--text-secondary);
+        }
+        
+        .contact-form {
+            display: grid;
+            gap: 1rem;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .form-group label {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 1rem;
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            background: var(--glass-bg);
+            color: var(--text-primary);
+            backdrop-filter: blur(10px);
+            transition: all var(--transition-normal);
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+        
+        .achievement-badge {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: var(--glass-bg);
+            padding: 1rem;
+            border-radius: var(--radius-lg);
+            margin-bottom: 1rem;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+        }
+        
+        .achievement-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--primary-gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--text-inverse);
+        }
+        
+        .progress-bar {
+            background: var(--glass-bg);
+            border-radius: var(--radius-full);
+            height: 10px;
+            overflow: hidden;
+            margin-top: 0.5rem;
+        }
+        
+        .progress-fill {
+            background: var(--primary-gradient);
+            height: 100%;
+            border-radius: var(--radius-full);
+            transition: width var(--transition-slow);
+        }
+        
+        @media (max-width: 768px) {
+            .profile-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .profile-meta {
+                justify-content: center;
+            }
+            
+            .profile-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .profile-info h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Particle Background -->
+    <div id="particles"></div>
+    
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-star"></i>
+                <span>Nebula Nexus</span>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="index.html" class="nav-link">Dashboard</a></li>
+                <li class="nav-item"><a href="profile.html" class="nav-link active">Profile</a></li>
+                <li class="nav-item"><a href="events.html" class="nav-link">Events</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Clubs</a></li>
+                <li class="nav-item">
+                    <button class="theme-toggle" id="themeToggle">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Profile Hero -->
+    <section class="profile-hero">
+        <div class="container">
+            <div class="profile-header">
+                <div class="profile-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="profile-info">
+                    <h1>Aditya Sharma</h1>
+                    <div class="profile-meta">
+                        <div class="meta-item">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>Computer Science Engineering</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-calendar"></i>
+                            <span>3rd Year</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-id-badge"></i>
+                            <span>ID: 210101CS052</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>aditya.sharma@manipal.edu</span>
+                        </div>
+                    </div>
+                    <div class="profile-stats">
+                        <div class="stat-item">
+                            <span class="stat-value">5</span>
+                            <span class="stat-label">Joined Clubs</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">12</span>
+                            <span class="stat-label">Events Attended</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">8</span>
+                            <span class="stat-label">Achievements</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">95%</span>
+                            <span class="stat-label">Participation</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Profile Content -->
+    <section class="profile-content-section">
+        <div class="container">
+            <div class="profile-content">
+                <!-- Joined Clubs -->
+                <div class="content-card">
+                    <h3><i class="fas fa-users"></i> Joined Clubs</h3>
+                    <div class="clubs-container">
+                        <div class="club-badge">
+                            <i class="fas fa-code"></i>
+                            <span>Coding Club</span>
+                        </div>
+                        <div class="club-badge">
+                            <i class="fas fa-camera"></i>
+                            <span>Photography Club</span>
+                        </div>
+                        <div class="club-badge">
+                            <i class="fas fa-music"></i>
+                            <span>Dance Club</span>
+                        </div>
+                        <div class="club-badge">
+                            <i class="fas fa-volleyball-ball"></i>
+                            <span>Sports Club</span>
+                        </div>
+                        <div class="club-badge">
+                            <i class="fas fa-book"></i>
+                            <span>Literature Club</span>
+                        </div>
+                    </div>
+                    
+                    <h4 style="margin-top: 2rem; margin-bottom: 1rem; color: var(--text-primary);">Recent Achievements</h4>
+                    <div class="achievement-badge">
+                        <div class="achievement-icon">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <div>
+                            <h5 style="color: var(--text-primary); margin-bottom: 0.25rem;">Hackathon Winner 2024</h5>
+                            <p style="color: var(--text-secondary); font-size: 0.9rem;">First place in the annual coding competition</p>
+                        </div>
+                    </div>
+                    <div class="achievement-badge">
+                        <div class="achievement-icon">
+                            <i class="fas fa-medal"></i>
+                        </div>
+                        <div>
+                            <h5 style="color: var(--text-primary); margin-bottom: 0.25rem;">Photography Excellence</h5>
+                            <p style="color: var(--text-secondary); font-size: 0.9rem;">Best campus photograph of the year</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Registered Events -->
+                <div class="content-card">
+                    <h3><i class="fas fa-calendar-alt"></i> Registered Events</h3>
+                    <div class="events-container">
+                        <div class="event-item">
+                            <div class="event-icon">
+                                <i class="fas fa-laptop-code"></i>
+                            </div>
+                            <div class="event-details">
+                                <h4>Hackathon 2024</h4>
+                                <p>March 22-24, 2024 • Tech Hub</p>
+                            </div>
+                        </div>
+                        <div class="event-item">
+                            <div class="event-icon">
+                                <i class="fas fa-microphone"></i>
+                            </div>
+                            <div class="event-details">
+                                <h4>Open Mic Night</h4>
+                                <p>March 15, 2024 • Auditorium</p>
+                            </div>
+                        </div>
+                        <div class="event-item">
+                            <div class="event-icon">
+                                <i class="fas fa-paint-brush"></i>
+                            </div>
+                            <div class="event-details">
+                                <h4>Art Exhibition</h4>
+                                <p>March 28, 2024 • Gallery Hall</p>
+                            </div>
+                        </div>
+                        <div class="event-item">
+                            <div class="event-icon">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div class="event-details">
+                                <h4>Nebula Nexus 2024</h4>
+                                <p>April 15-17, 2024 • Main Campus</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Schedule -->
+                <div class="content-card">
+                    <h3><i class="fas fa-clock"></i> My Schedule</h3>
+                    <table class="schedule-table">
+                        <thead>
+                            <tr>
+                                <th>Day</th>
+                                <th>Activity</th>
+                                <th>Time</th>
+                                <th>Venue</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Monday</td>
+                                <td>Coding Club Meeting</td>
+                                <td>4:00 PM</td>
+                                <td>Lab 301</td>
+                            </tr>
+                            <tr>
+                                <td>Wednesday</td>
+                                <td>Photography Workshop</td>
+                                <td>3:30 PM</td>
+                                <td>Studio A</td>
+                            </tr>
+                            <tr>
+                                <td>Friday</td>
+                                <td>Dance Practice</td>
+                                <td>5:00 PM</td>
+                                <td>Dance Hall</td>
+                            </tr>
+                            <tr>
+                                <td>Saturday</td>
+                                <td>Sports Training</td>
+                                <td>6:00 AM</td>
+                                <td>Sports Complex</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <!-- Progress Tracking -->
+                    <div style="margin-top: 2rem;">
+                        <h4 style="color: var(--text-primary); margin-bottom: 1rem;">Skill Progress</h4>
+                        <div style="margin-bottom: 1rem;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <span style="color: var(--text-secondary);">Programming</span>
+                                <span style="color: var(--primary-color);">85%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 85%;"></div>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 1rem;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <span style="color: var(--text-secondary);">Photography</span>
+                                <span style="color: var(--primary-color);">70%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 70%;"></div>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 1rem;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <span style="color: var(--text-secondary);">Leadership</span>
+                                <span style="color: var(--primary-color);">60%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 60%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="content-card">
+                    <h3><i class="fas fa-envelope"></i> Contact Coordinators</h3>
+                    <form class="contact-form">
+                        <div class="form-group">
+                            <label for="coordinator">Select Coordinator</label>
+                            <select id="coordinator">
+                                <option value="">Choose coordinator...</option>
+                                <option value="rajesh">Dr. Rajesh Kumar - Faculty</option>
+                                <option value="priya">Priya Sharma - Cultural Events</option>
+                                <option value="arjun">Arjun Patel - Technical Events</option>
+                                <option value="sneha">Sneha Reddy - Sports</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" placeholder="Enter subject...">
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" rows="4" placeholder="Type your message..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-paper-plane"></i>
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Nebula Nexus</h3>
+                    <p>Connecting students through amazing club experiences at Manipal University.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="events.html">Events</a></li>
+                        <li><a href="index.html">Dashboard</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Follow Us</h4>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Nebula Nexus - Manipal University. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loader">
+            <div class="orbit">
+                <div class="planet"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script>
+        // Profile-specific functionality
+        document.addEventListener('DOMContentLoaded', () => {
+            // Animate progress bars on load
+            setTimeout(() => {
+                document.querySelectorAll('.progress-fill').forEach(bar => {
+                    const width = bar.style.width;
+                    bar.style.width = '0%';
+                    setTimeout(() => bar.style.width = width, 500);
+                });
+            }, 1000);
+            
+            // Handle contact form submission
+            document.querySelector('.contact-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                // Show success message
+                const button = e.target.querySelector('button[type="submit"]');
+                const originalText = button.innerHTML;
+                
+                button.innerHTML = '<i class="fas fa-check"></i> Message Sent!';
+                button.style.background = 'var(--success-color)';
+                
+                setTimeout(() => {
+                    button.innerHTML = originalText;
+                    button.style.background = '';
+                    e.target.reset();
+                }, 2000);
+            });
+            
+            // Add hover effects to achievement badges
+            document.querySelectorAll('.achievement-badge').forEach(badge => {
+                badge.addEventListener('mouseenter', () => {
+                    badge.style.transform = 'translateX(10px)';
+                });
+                
+                badge.addEventListener('mouseleave', () => {
+                    badge.style.transform = 'translateX(0)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

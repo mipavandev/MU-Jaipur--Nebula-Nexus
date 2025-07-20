@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coding Club - Nebula Nexus</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💻</text></svg>">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .club-hero {
+            padding: 120px 0 60px;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .club-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="10" fill="rgba(255,255,255,0.1)">{ }</text></svg>') repeat;
+            background-size: 100px 100px;
+            animation: float 20s ease-in-out infinite;
+        }
+        
+        .club-header {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 3rem;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .club-info h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 20px rgba(99, 102, 241, 0.5);
+        }
+        
+        .club-tagline {
+            font-size: 1.3rem;
+            color: #64ffda;
+            margin-bottom: 2rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        .club-description {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+        
+        .club-stats {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-box {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem;
+            border-radius: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .stat-number {
+            display: block;
+            font-size: 2rem;
+            font-weight: 700;
+            color: #64ffda;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .club-logo {
+            width: 300px;
+            height: 300px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 8rem;
+            color: white;
+            position: relative;
+            animation: rotate 20s linear infinite;
+            box-shadow: 0 0 50px rgba(99, 102, 241, 0.3);
+        }
+        
+        .club-logo::before {
+            content: '';
+            position: absolute;
+            inset: -10px;
+            background: linear-gradient(45deg, #64ffda, #667eea, #764ba2, #64ffda);
+            border-radius: 50%;
+            z-index: -1;
+            animation: rotate 15s linear infinite reverse;
+        }
+        
+        .section {
+            padding: 4rem 0;
+        }
+        
+        .section-dark {
+            background: var(--bg-secondary);
+        }
+        
+        .content-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+        
+        .info-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-xl);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .info-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.3rem;
+        }
+        
+        .activities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .activity-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            transition: all var(--transition-normal);
+            cursor: pointer;
+        }
+        
+        .activity-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--primary-color);
+        }
+        
+        .activity-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--primary-gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            margin-bottom: 1rem;
+        }
+        
+        .activity-card h4 {
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .activity-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        
+        .coordinator-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-xl);
+            padding: 2rem;
+            text-align: center;
+            transition: all var(--transition-normal);
+        }
+        
+        .coordinator-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-xl);
+        }
+        
+        .coordinator-avatar {
+            width: 100px;
+            height: 100px;
+            background: var(--primary-gradient);
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: white;
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+        }
+        
+        .coordinator-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .coordinator-role {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+        
+        .coordinator-contact {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        
+        .tech-badge {
+            background: var(--glass-bg);
+            color: var(--primary-color);
+            padding: 0.4rem 0.8rem;
+            border-radius: var(--radius-full);
+            font-size: 0.8rem;
+            font-weight: 500;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+            transition: all var(--transition-normal);
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        .tech-badge:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .schedule-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .schedule-table th {
+            background: var(--primary-gradient);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        .schedule-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--glass-border);
+            color: var(--text-secondary);
+        }
+        
+        .schedule-table tr:hover {
+            background: var(--glass-bg);
+        }
+        
+        .join-section {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            padding: 3rem;
+            border-radius: var(--radius-xl);
+            text-align: center;
+            margin: 3rem 0;
+            border: 1px solid var(--glass-border);
+        }
+        
+        .join-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .join-section p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .join-form {
+            max-width: 500px;
+            margin: 0 auto;
+            display: grid;
+            gap: 1rem;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            background: var(--glass-bg);
+            color: var(--text-primary);
+            backdrop-filter: blur(10px);
+            font-family: inherit;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+        
+        .code-snippet {
+            background: #1a1a2e;
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            margin: 1rem 0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            border: 1px solid #333;
+        }
+        
+        .code-snippet .comment {
+            color: #6a9955;
+        }
+        
+        .code-snippet .keyword {
+            color: #569cd6;
+        }
+        
+        .code-snippet .string {
+            color: #ce9178;
+        }
+        
+        .code-snippet .function {
+            color: #dcdcaa;
+        }
+        
+        @media (max-width: 768px) {
+            .club-header {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .club-info h1 {
+                font-size: 2.5rem;
+            }
+            
+            .club-logo {
+                width: 200px;
+                height: 200px;
+                font-size: 5rem;
+            }
+            
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .club-stats {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Particle Background -->
+    <div id="particles"></div>
+    
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-star"></i>
+                <span>Nebula Nexus</span>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="index.html" class="nav-link">Dashboard</a></li>
+                <li class="nav-item"><a href="profile.html" class="nav-link">Profile</a></li>
+                <li class="nav-item"><a href="events.html" class="nav-link">Events</a></li>
+                <li class="nav-item"><a href="#" class="nav-link active">Clubs</a></li>
+                <li class="nav-item">
+                    <button class="theme-toggle" id="themeToggle">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Club Hero -->
+    <section class="club-hero">
+        <div class="container">
+            <div class="club-header">
+                <div class="club-info">
+                    <h1>Coding Club</h1>
+                    <p class="club-tagline">// Building the future, one line at a time</p>
+                    <p class="club-description">
+                        Welcome to the Coding Club, where passionate programmers come together to learn, create, and innovate. 
+                        Whether you're a beginner taking your first steps into programming or an experienced developer looking to 
+                        expand your skills, our club provides the perfect environment for growth and collaboration.
+                    </p>
+                    <div class="club-stats">
+                        <div class="stat-box">
+                            <span class="stat-number">150+</span>
+                            <span class="stat-label">Members</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-number">50+</span>
+                            <span class="stat-label">Projects</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-number">25+</span>
+                            <span class="stat-label">Events</span>
+                        </div>
+                    </div>
+                    <div class="hero-buttons">
+                        <button class="btn btn-primary" onclick="scrollToJoin()">
+                            <i class="fas fa-code"></i> Join Our Club
+                        </button>
+                        <button class="btn btn-secondary" onclick="window.open('https://github.com/manipal-coding-club', '_blank')">
+                            <i class="fab fa-github"></i> View Projects
+                        </button>
+                    </div>
+                </div>
+                <div class="club-logo">
+                    <i class="fas fa-code"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Club Content -->
+    <section class="section">
+        <div class="container">
+            <div class="content-grid">
+                <div class="main-content">
+                    <!-- About Section -->
+                    <div class="info-card">
+                        <h3><i class="fas fa-info-circle"></i> About the Club</h3>
+                        <p>The Coding Club at Manipal University is a vibrant community of tech enthusiasts dedicated to fostering programming skills and innovation. We believe in learning by doing and provide hands-on experience through workshops, hackathons, and collaborative projects.</p>
+                        
+                        <h4 style="margin: 2rem 0 1rem; color: var(--text-primary);">Our Mission</h4>
+                        <p>To create a supportive environment where students can develop their programming skills, work on real-world projects, and prepare for successful careers in technology.</p>
+                        
+                        <h4 style="margin: 2rem 0 1rem; color: var(--text-primary);">Technologies We Work With</h4>
+                        <div class="tech-stack">
+                            <span class="tech-badge">JavaScript</span>
+                            <span class="tech-badge">Python</span>
+                            <span class="tech-badge">Java</span>
+                            <span class="tech-badge">C++</span>
+                            <span class="tech-badge">React</span>
+                            <span class="tech-badge">Node.js</span>
+                            <span class="tech-badge">MongoDB</span>
+                            <span class="tech-badge">Git</span>
+                            <span class="tech-badge">Docker</span>
+                            <span class="tech-badge">AWS</span>
+                            <span class="tech-badge">Machine Learning</span>
+                            <span class="tech-badge">Blockchain</span>
+                        </div>
+                        
+                        <div class="code-snippet">
+<span class="comment">// Welcome to Coding Club!</span>
+<span class="keyword">function</span> <span class="function">welcomeNewMember</span>(name) {
+    <span class="keyword">const</span> greeting = <span class="string">`Welcome to Coding Club, ${name}!`</span>;
+    console.log(greeting);
+    
+    <span class="comment">// Start your coding journey here</span>
+    <span class="keyword">return</span> {
+        status: <span class="string">'member'</span>,
+        skills: [],
+        projects: [],
+        excitement: <span class="string">'maximum'</span>
+    };
+}
+
+<span class="function">welcomeNewMember</span>(<span class="string">'Aditya'</span>);
+                        </div>
+                    </div>
+
+                    <!-- Activities Section -->
+                    <div class="info-card">
+                        <h3><i class="fas fa-laptop-code"></i> Our Activities</h3>
+                        <div class="activities-grid">
+                            <div class="activity-card">
+                                <div class="activity-icon">
+                                    <i class="fas fa-chalkboard-teacher"></i>
+                                </div>
+                                <h4>Weekly Workshops</h4>
+                                <p>Learn new technologies and programming concepts through hands-on workshops conducted by experts.</p>
+                            </div>
+                            <div class="activity-card">
+                                <div class="activity-icon">
+                                    <i class="fas fa-trophy"></i>
+                                </div>
+                                <h4>Hackathons</h4>
+                                <p>Participate in exciting 24-48 hour coding competitions and build innovative solutions.</p>
+                            </div>
+                            <div class="activity-card">
+                                <div class="activity-icon">
+                                    <i class="fas fa-project-diagram"></i>
+                                </div>
+                                <h4>Open Source Projects</h4>
+                                <p>Contribute to real-world projects and build your portfolio while helping the community.</p>
+                            </div>
+                            <div class="activity-card">
+                                <div class="activity-icon">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <h4>Study Groups</h4>
+                                <p>Collaborative learning sessions for DSA, competitive programming, and interview preparation.</p>
+                            </div>
+                            <div class="activity-card">
+                                <div class="activity-icon">
+                                    <i class="fas fa-microphone"></i>
+                                </div>
+                                <h4>Tech Talks</h4>
+                                <p>Industry experts share insights about latest trends, career guidance, and emerging technologies.</p>
+                            </div>
+                            <div class="activity-card">
+                                <div class="activity-icon">
+                                    <i class="fas fa-code-branch"></i>
+                                </div>
+                                <h4>Code Reviews</h4>
+                                <p>Peer code reviews to improve coding standards and learn best practices from fellow developers.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Schedule Section -->
+                    <div class="info-card">
+                        <h3><i class="fas fa-calendar"></i> Weekly Schedule</h3>
+                        <table class="schedule-table">
+                            <thead>
+                                <tr>
+                                    <th>Day</th>
+                                    <th>Time</th>
+                                    <th>Activity</th>
+                                    <th>Venue</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Monday</td>
+                                    <td>4:00 PM - 6:00 PM</td>
+                                    <td>DSA Study Group</td>
+                                    <td>Lab 301</td>
+                                </tr>
+                                <tr>
+                                    <td>Wednesday</td>
+                                    <td>5:00 PM - 7:00 PM</td>
+                                    <td>Web Development Workshop</td>
+                                    <td>Lab 302</td>
+                                </tr>
+                                <tr>
+                                    <td>Friday</td>
+                                    <td>3:30 PM - 5:30 PM</td>
+                                    <td>Open Source Contribution</td>
+                                    <td>Lab 301</td>
+                                </tr>
+                                <tr>
+                                    <td>Saturday</td>
+                                    <td>10:00 AM - 12:00 PM</td>
+                                    <td>Competitive Programming</td>
+                                    <td>Lab 303</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <div style="margin-top: 1.5rem; padding: 1rem; background: var(--glass-bg); border-radius: var(--radius-lg); border: 1px solid var(--glass-border);">
+                            <h4 style="color: var(--primary-color); margin-bottom: 0.5rem;">
+                                <i class="fas fa-exclamation-circle"></i> Important Deadlines
+                            </h4>
+                            <ul style="color: var(--text-secondary); line-height: 1.8;">
+                                <li><strong>Hackathon Registration:</strong> March 20, 2024</li>
+                                <li><strong>Project Submission:</strong> April 30, 2024</li>
+                                <li><strong>Summer Internship Applications:</strong> May 15, 2024</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sidebar">
+                    <!-- Faculty Coordinator -->
+                    <div class="coordinator-card">
+                        <div class="coordinator-avatar">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <div class="coordinator-name">Dr. Vikram Singh</div>
+                        <div class="coordinator-role">Faculty Coordinator</div>
+                        <div class="coordinator-contact">
+                            <i class="fas fa-envelope"></i> vikram.singh@manipal.edu<br>
+                            <i class="fas fa-phone"></i> +91 98765 43210
+                        </div>
+                        <button class="btn btn-outline" onclick="contactCoordinator('faculty')">
+                            <i class="fas fa-envelope"></i> Contact
+                        </button>
+                    </div>
+
+                    <!-- Student Coordinators -->
+                    <div class="coordinator-card">
+                        <div class="coordinator-avatar">
+                            <i class="fas fa-user-graduate"></i>
+                        </div>
+                        <div class="coordinator-name">Rahul Mehta</div>
+                        <div class="coordinator-role">President</div>
+                        <div class="coordinator-contact">
+                            <i class="fas fa-envelope"></i> rahul.mehta@learner.manipal.edu<br>
+                            <i class="fas fa-phone"></i> +91 87654 32109
+                        </div>
+                        <button class="btn btn-outline" onclick="contactCoordinator('president')">
+                            <i class="fas fa-envelope"></i> Contact
+                        </button>
+                    </div>
+
+                    <div class="coordinator-card">
+                        <div class="coordinator-avatar">
+                            <i class="fas fa-user-graduate"></i>
+                        </div>
+                        <div class="coordinator-name">Sneha Patel</div>
+                        <div class="coordinator-role">Technical Lead</div>
+                        <div class="coordinator-contact">
+                            <i class="fas fa-envelope"></i> sneha.patel@learner.manipal.edu<br>
+                            <i class="fas fa-phone"></i> +91 76543 21098
+                        </div>
+                        <button class="btn btn-outline" onclick="contactCoordinator('technical')">
+                            <i class="fas fa-envelope"></i> Contact
+                        </button>
+                    </div>
+
+                    <!-- Quick Links -->
+                    <div class="info-card">
+                        <h3><i class="fas fa-link"></i> Quick Links</h3>
+                        <div style="display: flex; flex-direction: column; gap: 1rem;">
+                            <a href="#" class="btn btn-secondary" onclick="window.open('https://github.com/manipal-coding-club', '_blank')">
+                                <i class="fab fa-github"></i> GitHub Organization
+                            </a>
+                            <a href="#" class="btn btn-secondary" onclick="window.open('https://discord.gg/manipal-coding', '_blank')">
+                                <i class="fab fa-discord"></i> Discord Server
+                            </a>
+                            <a href="#" class="btn btn-secondary">
+                                <i class="fas fa-book"></i> Resources & Tutorials
+                            </a>
+                            <a href="#" class="btn btn-secondary">
+                                <i class="fas fa-calendar-alt"></i> Event Calendar
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Join Section -->
+    <section class="section section-dark">
+        <div class="container">
+            <div class="join-section" id="joinSection">
+                <h2>Ready to Start Your Coding Journey?</h2>
+                <p>Join our amazing community of developers and take your programming skills to the next level. Fill out the form below to become a member!</p>
+                
+                <form class="join-form" onsubmit="handleJoinForm(event)">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <input type="text" placeholder="First Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" placeholder="Last Name" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <input type="email" placeholder="Email Address" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" placeholder="Phone Number" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <select required>
+                                <option value="">Select Year</option>
+                                <option value="1">1st Year</option>
+                                <option value="2">2nd Year</option>
+                                <option value="3">3rd Year</option>
+                                <option value="4">4th Year</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <select required>
+                                <option value="">Experience Level</option>
+                                <option value="beginner">Beginner</option>
+                                <option value="intermediate">Intermediate</option>
+                                <option value="advanced">Advanced</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <textarea placeholder="Tell us about your programming interests and goals..." rows="4"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-rocket"></i> Join Coding Club
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Nebula Nexus</h3>
+                    <p>Connecting students through amazing club experiences at Manipal University.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Dashboard</a></li>
+                        <li><a href="profile.html">Profile</a></li>
+                        <li><a href="events.html">Events</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Follow Us</h4>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-discord"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Nebula Nexus - Manipal University. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loader">
+            <div class="orbit">
+                <div class="planet"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script>
+        function scrollToJoin() {
+            document.getElementById('joinSection').scrollIntoView({ 
+                behavior: 'smooth' 
+            });
+        }
+
+        function contactCoordinator(type) {
+            let coordinator = '';
+            let email = '';
+            
+            switch(type) {
+                case 'faculty':
+                    coordinator = 'Dr. Vikram Singh';
+                    email = 'vikram.singh@manipal.edu';
+                    break;
+                case 'president':
+                    coordinator = 'Rahul Mehta';
+                    email = 'rahul.mehta@learner.manipal.edu';
+                    break;
+                case 'technical':
+                    coordinator = 'Sneha Patel';
+                    email = 'sneha.patel@learner.manipal.edu';
+                    break;
+            }
+            
+            const subject = encodeURIComponent('Coding Club Inquiry');
+            const body = encodeURIComponent(`Hi ${coordinator},\n\nI'm interested in learning more about the Coding Club.\n\nBest regards,\n[Your Name]`);
+            
+            window.open(`mailto:${email}?subject=${subject}&body=${body}`, '_blank');
+        }
+
+        function handleJoinForm(event) {
+            event.preventDefault();
+            
+            const button = event.target.querySelector('button[type="submit"]');
+            const originalText = button.innerHTML;
+            
+            // Show loading state
+            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+            button.disabled = true;
+            
+            // Simulate form submission
+            setTimeout(() => {
+                button.innerHTML = '<i class="fas fa-check"></i> Welcome to the Club!';
+                button.style.background = 'var(--success-color)';
+                
+                // Show success particles
+                createSuccessParticles(button);
+                
+                setTimeout(() => {
+                    button.innerHTML = originalText;
+                    button.style.background = '';
+                    button.disabled = false;
+                    event.target.reset();
+                }, 3000);
+            }, 2000);
+        }
+
+        function createSuccessParticles(element) {
+            const rect = element.getBoundingClientRect();
+            const colors = ['#64ffda', '#667eea', '#764ba2'];
+            
+            for (let i = 0; i < 15; i++) {
+                const particle = document.createElement('div');
+                particle.innerHTML = ['💻', '🚀', '⭐', '🎉'][Math.floor(Math.random() * 4)];
+                particle.style.cssText = `
+                    position: fixed;
+                    font-size: 20px;
+                    pointer-events: none;
+                    z-index: 9999;
+                    left: ${rect.left + rect.width / 2}px;
+                    top: ${rect.top + rect.height / 2}px;
+                `;
+                
+                document.body.appendChild(particle);
+                
+                const angle = (i / 15) * Math.PI * 2;
+                const velocity = 100 + Math.random() * 50;
+                
+                particle.animate([
+                    { transform: 'translate(0, 0) scale(1)', opacity: 1 },
+                    { 
+                        transform: `translate(${Math.cos(angle) * velocity}px, ${Math.sin(angle) * velocity}px) scale(0)`, 
+                        opacity: 0 
+                    }
+                ], {
+                    duration: 1500,
+                    easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
+                }).onfinish = () => particle.remove();
+            }
+        }
+
+        // Add typing animation to the code snippet
+        document.addEventListener('DOMContentLoaded', () => {
+            const codeSnippet = document.querySelector('.code-snippet');
+            if (codeSnippet) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.style.animation = 'fadeInUp 1s ease-out';
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                });
+                observer.observe(codeSnippet);
+            }
+        });
+    </script>
+</body>
+</html>

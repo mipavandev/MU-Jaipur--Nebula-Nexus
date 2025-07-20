@@ -1,24 +1,303 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>manipal-nexus-sanskriti-hub</title>
-    <meta name="description" content="Lovable Generated Project" />
-    <meta name="author" content="Lovable" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nebula Nexus - Manipal University Clubs Hub</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌌</text></svg>">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Particle Background -->
+    <div id="particles"></div>
+    
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-star"></i>
+                <span>Nebula Nexus</span>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="index.html" class="nav-link active">Dashboard</a></li>
+                <li class="nav-item"><a href="profile.html" class="nav-link">Profile</a></li>
+                <li class="nav-item"><a href="events.html" class="nav-link">Events</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Clubs</a></li>
+                <li class="nav-item">
+                    <button class="theme-toggle" id="themeToggle">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
 
-    <meta property="og:title" content="manipal-nexus-sanskriti-hub" />
-    <meta property="og:description" content="Lovable Generated Project" />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title">Explore Campus Life with <span class="gradient-text">Nebula Nexus!</span></h1>
+                <p class="hero-subtitle">Discover amazing clubs, connect with fellow students, and make your university experience unforgettable</p>
+                <div class="hero-buttons">
+                    <button class="btn btn-primary">Explore Clubs</button>
+                    <button class="btn btn-secondary">View Events</button>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="floating-card">
+                    <i class="fas fa-users"></i>
+                    <span>50+ Active Clubs</span>
+                </div>
+                <div class="floating-card">
+                    <i class="fas fa-calendar"></i>
+                    <span>100+ Events</span>
+                </div>
+                <div class="floating-card">
+                    <i class="fas fa-trophy"></i>
+                    <span>Nebula Nexus 2024</span>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@lovable_dev" />
-    <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
-  </head>
+    <!-- Nebula Nexus Special Section -->
+    <section class="nebula-special">
+        <div class="container">
+            <div class="nebula-card">
+                <div class="nebula-content">
+                    <h2>🌌 Nebula Nexus 2024</h2>
+                    <p>The ultimate cultural extravaganza is coming! Get ready for an spectacular showcase of talent, creativity, and innovation.</p>
+                    <div class="countdown-timer" id="countdown">
+                        <div class="time-unit">
+                            <span class="time-value" id="days">30</span>
+                            <span class="time-label">Days</span>
+                        </div>
+                        <div class="time-unit">
+                            <span class="time-value" id="hours">12</span>
+                            <span class="time-label">Hours</span>
+                        </div>
+                        <div class="time-unit">
+                            <span class="time-value" id="minutes">45</span>
+                            <span class="time-label">Minutes</span>
+                        </div>
+                        <div class="time-unit">
+                            <span class="time-value" id="seconds">20</span>
+                            <span class="time-label">Seconds</span>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary">See Details</button>
+                </div>
+                <div class="nebula-visual">
+                    <div class="nebula-sphere"></div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+    <!-- Clubs Overview -->
+    <section class="clubs-section">
+        <div class="container">
+            <h2 class="section-title">Discover Your Passion</h2>
+            <p class="section-subtitle">Join clubs that match your interests and meet like-minded students</p>
+            
+            <div class="clubs-grid">
+                <div class="club-card" data-club="coding">
+                    <div class="club-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>Coding Club</h3>
+                    <p>Master programming skills and build amazing projects together</p>
+                    <div class="club-stats">
+                        <span><i class="fas fa-users"></i> 150+ Members</span>
+                    </div>
+                    <button class="btn btn-outline" onclick="openClubPage('coding-club.html')">Explore Club</button>
+                </div>
+
+                <div class="club-card" data-club="dance">
+                    <div class="club-icon">
+                        <i class="fas fa-music"></i>
+                    </div>
+                    <h3>Dance Club</h3>
+                    <p>Express yourself through rhythm and movement</p>
+                    <div class="club-stats">
+                        <span><i class="fas fa-users"></i> 200+ Members</span>
+                    </div>
+                    <button class="btn btn-outline" onclick="openClubPage('dance-club.html')">Explore Club</button>
+                </div>
+
+                <div class="club-card" data-club="literature">
+                    <div class="club-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3>Literature Club</h3>
+                    <p>Dive deep into the world of words and stories</p>
+                    <div class="club-stats">
+                        <span><i class="fas fa-users"></i> 80+ Members</span>
+                    </div>
+                    <button class="btn btn-outline" onclick="openClubPage('literature-club.html')">Explore Club</button>
+                </div>
+
+                <div class="club-card" data-club="photography">
+                    <div class="club-icon">
+                        <i class="fas fa-camera"></i>
+                    </div>
+                    <h3>Photography Club</h3>
+                    <p>Capture moments and create visual stories</p>
+                    <div class="club-stats">
+                        <span><i class="fas fa-users"></i> 120+ Members</span>
+                    </div>
+                    <button class="btn btn-outline" onclick="openClubPage('photography-club.html')">Explore Club</button>
+                </div>
+
+                <div class="club-card" data-club="sports">
+                    <div class="club-icon">
+                        <i class="fas fa-volleyball-ball"></i>
+                    </div>
+                    <h3>Sports Club</h3>
+                    <p>Stay fit and compete in various sports activities</p>
+                    <div class="club-stats">
+                        <span><i class="fas fa-users"></i> 300+ Members</span>
+                    </div>
+                    <button class="btn btn-outline" onclick="openClubPage('sports-club.html')">Explore Club</button>
+                </div>
+
+                <div class="club-card" data-club="art">
+                    <div class="club-icon">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <h3>Art Club</h3>
+                    <p>Unleash your creativity through visual arts</p>
+                    <div class="club-stats">
+                        <span><i class="fas fa-users"></i> 90+ Members</span>
+                    </div>
+                    <button class="btn btn-outline" onclick="openClubPage('art-club.html')">Explore Club</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Upcoming Highlights -->
+    <section class="highlights-section">
+        <div class="container">
+            <h2 class="section-title">Upcoming Highlights</h2>
+            <div class="highlights-carousel">
+                <div class="highlight-card active">
+                    <div class="highlight-image">
+                        <i class="fas fa-microphone"></i>
+                    </div>
+                    <div class="highlight-content">
+                        <h3>Open Mic Night</h3>
+                        <p>Showcase your talent on stage</p>
+                        <span class="highlight-date">March 15, 2024</span>
+                    </div>
+                </div>
+                <div class="highlight-card">
+                    <div class="highlight-image">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <div class="highlight-content">
+                        <h3>Hackathon 2024</h3>
+                        <p>48 hours of coding innovation</p>
+                        <span class="highlight-date">March 22, 2024</span>
+                    </div>
+                </div>
+                <div class="highlight-card">
+                    <div class="highlight-image">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <div class="highlight-content">
+                        <h3>Art Exhibition</h3>
+                        <p>Student artwork showcase</p>
+                        <span class="highlight-date">March 28, 2024</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Coordinator Spotlight -->
+    <section class="coordinators-section">
+        <div class="container">
+            <h2 class="section-title">Coordinator Spotlight</h2>
+            <div class="coordinators-grid">
+                <div class="coordinator-card">
+                    <div class="coordinator-avatar">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <h3>Dr. Rajesh Kumar</h3>
+                    <p>Faculty Coordinator</p>
+                    <span class="coordinator-role">Overall Activities Head</span>
+                    <button class="contact-btn"><i class="fas fa-envelope"></i></button>
+                </div>
+                <div class="coordinator-card">
+                    <div class="coordinator-avatar">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <h3>Priya Sharma</h3>
+                    <p>Student Coordinator</p>
+                    <span class="coordinator-role">Cultural Events Lead</span>
+                    <button class="contact-btn"><i class="fas fa-envelope"></i></button>
+                </div>
+                <div class="coordinator-card">
+                    <div class="coordinator-avatar">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <h3>Arjun Patel</h3>
+                    <p>Student Coordinator</p>
+                    <span class="coordinator-role">Technical Events Lead</span>
+                    <button class="contact-btn"><i class="fas fa-envelope"></i></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Nebula Nexus</h3>
+                    <p>Connecting students through amazing club experiences at Manipal University.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#" onclick="pageTransition('events.html')">Events</a></li>
+                        <li><a href="#" onclick="pageTransition('profile.html')">Profile</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Follow Us</h4>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Nebula Nexus - Manipal University. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loader">
+            <div class="orbit">
+                <div class="planet"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
 </html>

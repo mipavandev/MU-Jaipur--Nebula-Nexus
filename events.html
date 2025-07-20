@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events - Nebula Nexus</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📅</text></svg>">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .events-hero {
+            padding: 120px 0 60px;
+            text-align: center;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+        }
+        
+        .events-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .filter-bar {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            background: var(--glass-bg);
+            color: var(--text-secondary);
+            border-radius: var(--radius-full);
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+        }
+        
+        .filter-btn.active,
+        .filter-btn:hover {
+            background: var(--primary-color);
+            color: var(--text-inverse);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-glow);
+        }
+        
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .event-card {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--glass-border);
+            transition: all var(--transition-normal);
+            position: relative;
+        }
+        
+        .event-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-xl);
+        }
+        
+        .event-image {
+            height: 200px;
+            background: var(--primary-gradient);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--text-inverse);
+            overflow: hidden;
+        }
+        
+        .event-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(0,0,0,0.1), rgba(255,255,255,0.1));
+        }
+        
+        .event-status {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.5rem 1rem;
+            background: var(--success-color);
+            color: var(--text-inverse);
+            border-radius: var(--radius-full);
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .event-status.upcoming { background: var(--warning-color); }
+        .event-status.past { background: var(--text-muted); }
+        
+        .event-content {
+            padding: 1.5rem;
+        }
+        
+        .event-category {
+            display: inline-block;
+            background: var(--glass-bg);
+            color: var(--primary-color);
+            padding: 0.25rem 0.75rem;
+            border-radius: var(--radius-full);
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
+            border: 1px solid var(--glass-border);
+        }
+        
+        .event-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+        
+        .event-organizer {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .event-organizer i {
+            color: var(--primary-color);
+        }
+        
+        .event-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .event-detail {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        .event-detail i {
+            color: var(--primary-color);
+            width: 16px;
+        }
+        
+        .event-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        
+        .event-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        
+        .register-btn {
+            flex: 1;
+            padding: 0.75rem 1.5rem;
+            background: var(--primary-gradient);
+            color: var(--text-inverse);
+            border: none;
+            border-radius: var(--radius-lg);
+            cursor: pointer;
+            font-weight: 600;
+            transition: all var(--transition-normal);
+        }
+        
+        .register-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-glow);
+        }
+        
+        .register-btn.registered {
+            background: var(--success-color);
+        }
+        
+        .register-btn:disabled {
+            background: var(--text-muted);
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .wishlist-btn {
+            width: 44px;
+            height: 44px;
+            border: 1px solid var(--glass-border);
+            background: var(--glass-bg);
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            backdrop-filter: blur(10px);
+        }
+        
+        .wishlist-btn:hover,
+        .wishlist-btn.active {
+            background: var(--error-color);
+            color: var(--text-inverse);
+            border-color: var(--error-color);
+        }
+        
+        .event-participants {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        
+        .participants-avatars {
+            display: flex;
+            margin-left: 0.5rem;
+        }
+        
+        .participant-avatar {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--primary-gradient);
+            margin-left: -8px;
+            border: 2px solid var(--bg-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            color: var(--text-inverse);
+        }
+        
+        .featured-event {
+            grid-column: 1 / -1;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            padding: 2rem;
+            border-radius: var(--radius-xl);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+            border: 2px solid var(--primary-color);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .featured-event::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+        
+        .featured-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .featured-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        
+        .featured-sphere {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: var(--primary-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: var(--text-inverse);
+            animation: pulse 3s ease-in-out infinite;
+            box-shadow: 0 0 50px rgba(99, 102, 241, 0.5);
+        }
+        
+        .search-bar {
+            max-width: 500px;
+            margin: 0 auto 2rem;
+            position: relative;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 1rem 3rem 1rem 1rem;
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-full);
+            background: var(--glass-bg);
+            color: var(--text-primary);
+            backdrop-filter: blur(10px);
+            font-size: 1rem;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+        
+        .search-btn {
+            position: absolute;
+            right: 0.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            border: none;
+            background: var(--primary-color);
+            color: var(--text-inverse);
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .past-events {
+            margin-top: 4rem;
+            padding: 2rem 0;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border-radius: var(--radius-xl);
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .gallery-item {
+            aspect-ratio: 1;
+            background: var(--primary-gradient);
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--text-inverse);
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .gallery-item:hover {
+            transform: scale(1.05);
+        }
+        
+        .gallery-item::after {
+            content: attr(data-title);
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 1rem;
+            font-size: 1rem;
+            transform: translateY(100%);
+            transition: transform var(--transition-normal);
+        }
+        
+        .gallery-item:hover::after {
+            transform: translateY(0);
+        }
+        
+        @media (max-width: 768px) {
+            .events-hero h1 {
+                font-size: 2rem;
+            }
+            
+            .events-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .featured-event {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .event-details {
+                grid-template-columns: 1fr;
+            }
+            
+            .filter-bar {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Particle Background -->
+    <div id="particles"></div>
+    
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-star"></i>
+                <span>Nebula Nexus</span>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="index.html" class="nav-link">Dashboard</a></li>
+                <li class="nav-item"><a href="profile.html" class="nav-link">Profile</a></li>
+                <li class="nav-item"><a href="events.html" class="nav-link active">Events</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Clubs</a></li>
+                <li class="nav-item">
+                    <button class="theme-toggle" id="themeToggle">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Events Hero -->
+    <section class="events-hero">
+        <div class="container">
+            <h1>Discover Amazing Events</h1>
+            <p class="section-subtitle">Join exciting activities and connect with your fellow students</p>
+            
+            <!-- Search Bar -->
+            <div class="search-bar">
+                <input type="text" class="search-input" placeholder="Search events..." id="searchInput">
+                <button class="search-btn" onclick="searchEvents()">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+            
+            <!-- Filter Bar -->
+            <div class="filter-bar">
+                <button class="filter-btn active" data-filter="all">All Events</button>
+                <button class="filter-btn" data-filter="cultural">Cultural</button>
+                <button class="filter-btn" data-filter="technical">Technical</button>
+                <button class="filter-btn" data-filter="sports">Sports</button>
+                <button class="filter-btn" data-filter="literary">Literary</button>
+                <button class="filter-btn" data-filter="social">Social</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Events Grid -->
+    <section class="events-section">
+        <div class="container">
+            <div class="events-grid" id="eventsGrid">
+                <!-- Featured Event -->
+                <div class="featured-event" data-category="cultural">
+                    <div class="featured-content">
+                        <h2>🌌 Nebula Nexus 2024</h2>
+                        <p>The ultimate cultural extravaganza featuring performances, competitions, and celebrations from all clubs across campus.</p>
+                        <div class="event-details">
+                            <div class="event-detail">
+                                <i class="fas fa-calendar"></i>
+                                <span>April 15-17, 2024</span>
+                            </div>
+                            <div class="event-detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Main Campus</span>
+                            </div>
+                        </div>
+                        <div class="event-actions">
+                            <button class="register-btn" onclick="registerEvent(this)">
+                                <i class="fas fa-star"></i> Register Now
+                            </button>
+                        </div>
+                    </div>
+                    <div class="featured-visual">
+                        <div class="featured-sphere">
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Regular Events -->
+                <div class="event-card" data-category="technical">
+                    <div class="event-image">
+                        <i class="fas fa-laptop-code"></i>
+                        <div class="event-status upcoming">Upcoming</div>
+                    </div>
+                    <div class="event-content">
+                        <div class="event-category">Technical</div>
+                        <h3 class="event-title">Hackathon 2024</h3>
+                        <div class="event-organizer">
+                            <i class="fas fa-users"></i>
+                            <span>Coding Club</span>
+                        </div>
+                        <div class="event-details">
+                            <div class="event-detail">
+                                <i class="fas fa-calendar"></i>
+                                <span>March 22-24</span>
+                            </div>
+                            <div class="event-detail">
+                                <i class="fas fa-clock"></i>
+                                <span>48 Hours</span>
+                            </div>
+                            <div class="event-detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Tech Hub</span>
+                            </div>
+                            <div class="event-detail">
+                                <i class="fas fa-trophy"></i>
+                                <span>₹50,000 Prize</span>
+                            </div>
+                        </div>
+                        <p class="event-description">
+                            48 hours of coding innovation! Build amazing projects, win prizes, and network with fellow developers.
+                        </p>
+                        <div class="event-actions">
+                            <button class="register-btn" onclick="registerEvent(this)">Register</button>
+                            <button class="wishlist-btn" onclick="toggleWishlist(this)">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                        </div>
+                        <div class="event-participants">
+                            <i class="fas fa-users"></i>
+                            <span>142 registered</span>
+                            <div class="participants-avatars">
+                                <div class="participant-avatar">A</div>
+                                <div class="participant-avatar">R</div>
+                                <div class="participant-avatar">S</div>
+                                <div class="participant-avatar">+</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="event-card" data-category="cultural">
+                    <div class="event-image">
+                        <i class="fas fa-microphone"></i>
+                        <div class="event-status upcoming">Upcoming</div>
+                    </div>
+                    <div class="event-content">
+                        <div class="event-category">Cultural</div>
+                        <h3 class="event-title">Open Mic Night</h3>
+                        <div class="event-organizer">
+                            <i class="fas fa-users"></i>
+                            <span>Literature Club</span>
+                        </div>
+                        <div class="event-details">
+                            <div class="event-detail">
+                                <i class="fas fa-calendar"></i>
+                                <span>March 15</span>
+                            </div>
+                            <div class="event-detail">
+                                <i class="fas fa-clock"></i>
+                                <span>7:00 PM</span>
+                            </div>
+                            <div class="event-detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Auditorium</span>
+                            </div>
+                            <div class="event-detail">
+                                <i class="fas fa-ticket-alt"></i>
+                                <span>Free Entry</span>
+                            </div>
+                        </div>
+                        <p class="event-description">
+                            Showcase your talent! Poetry, music, comedy - all forms of expression welcome at our monthly open mic.
+                        </p>
+                        <div class="event-actions">
+                            <button class="register-btn registered" onclick="registerEvent(this)">
+                                <i class="fas fa-check"></i> Registered
+                            </button>
+                            <button class="wishlist-btn active" onclick="toggleWishlist(this)">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                        </div>
+                        <div class="event-participants">
+                            <i class="fas fa-users"></i>
+                            <span>89 registered</span>
+                            <div class="participants-avatars">
+                                <div class="participant-avatar">P</div>
+                                <div class="participant-avatar">V</div>
+                                <div class="participant-avatar">M</div>
+                                <div class="participant-avatar">+</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="event-card" data-category="cultural">
+                    <div class="event-image">
+                        <i class="fas fa-paint-brush"></i>
+                        <div class="event-status upcoming">Upcoming</div>
+                    </div>
+                    <div class="event-content">
+                        <div class="event-category">Cultural</div>
+                        <h3 class="event-title">Art Exhibition</h3>
+                        <div class="event-organizer">
+                            <i class="fas fa-users"></i>
+                            <span>Art Club</span>
+                        </div>
+                        <div class="event-details">
+                            <div class="event-detail">
+                                <i class="fas fa-calendar"></i>
+                                <span>March 28</span>
+                            </div>
+                            <div class="event-detail">
+                                <i class="fas fa-clock"></i>
+                                <span>10:00 AM</span>
+                            </div>
+                            <div class="event-detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Gallery Hall</span>
+                            </div>
+                            <div class="event-detail">
+                                <i class="fas fa-palette"></i>
+                                <span>Student Works</span>
+                            </div>
+                        </div>
+                        <p class="event-description">
+                            Discover amazing artwork created by our talented students. Paintings, sculptures, and digital art on display.
+                        </p>
+                        <div class="event-actions">
+                            <button class="register-btn" onclick="registerEvent(this)">Register</button>
+                            <button class="wishlist-btn" onclick="toggleWishlist(this)">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                        </div>
+                        <div class="event-participants">
+                            <i class="fas fa-users"></i>
+                            <span>67 registered</span>
+                            <div class="participants-avatars">
+                                <div class="participant-avatar">N</div>
+                                <div class="participant-avatar">K</div>
+                                <div class="participant-avatar">T</div>
+                                <div class="participant-avatar">+</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="event-card" data-category="sports">
+                    <div class="event-image">
+                        <i class="fas fa-trophy"></i>
+                        <div class="event-status upcoming">Upcoming</div>
+                    </div>
+                    <div class="event-content">
+                        <div class="event-category">Sports</div>
+                        <h3 class="event-title">Inter-Club Cricket Tournament</h3>
+                        <div class="event-organizer">
+                            <i class="fas fa-users"></i>
+                            <span>Sports Club</span>
+                        </div>
+                        <div class="event-details">
+                            <div class="event-detail">
+                                <i class="fas fa-calendar"></i>
+                                <span>April 5-7</span>
+                            </div>
+                            <div class="event-detail">
+                                <i class="fas fa-clock"></i>
+                                <span>9:00 AM</span>
+                            </div>
+                            <div class="event-detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Sports Ground</span>
+                            </div>
+                            <div class="event-detail">
+                                <i class="fas fa-users"></i>
+                                <span>Team Event</span>
+                            </div>
+                        </div>
+                        <p class="event-description">
+                            Annual cricket championship between all campus clubs. Form your team and compete for the ultimate trophy!
+                        </p>
+                        <div class="event-actions">
+                            <button class="register-btn" onclick="registerEvent(this)">Register Team</button>
+                            <button class="wishlist-btn" onclick="toggleWishlist(this)">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                        </div>
+                        <div class="event-participants">
+                            <i class="fas fa-users"></i>
+                            <span>12 teams registered</span>
+                            <div class="participants-avatars">
+                                <div class="participant-avatar">C</div>
+                                <div class="participant-avatar">D</div>
+                                <div class="participant-avatar">S</div>
+                                <div class="participant-avatar">+</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="event-card" data-category="literary">
+                    <div class="event-image">
+                        <i class="fas fa-book"></i>
+                        <div class="event-status upcoming">Upcoming</div>
+                    </div>
+                    <div class="event-content">
+                        <div class="event-category">Literary</div>
+                        <h3 class="event-title">Poetry Slam Competition</h3>
+                        <div class="event-organizer">
+                            <i class="fas fa-users"></i>
+                            <span>Literature Club</span>
+                        </div>
+                        <div class="event-details">
+                            <div class="event-detail">
+                                <i class="fas fa-calendar"></i>
+                                <span>April 10</span>
+                            </div>
+                            <div class="event-detail">
+                                <i class="fas fa-clock"></i>
+                                <span>6:00 PM</span>
+                            </div>
+                            <div class="event-detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Amphitheater</span>
+                            </div>
+                            <div class="event-detail">
+                                <i class="fas fa-trophy"></i>
+                                <span>Cash Prizes</span>
+                            </div>
+                        </div>
+                        <p class="event-description">
+                            Express yourself through powerful poetry. Compete with fellow poets and win exciting prizes in this slam competition.
+                        </p>
+                        <div class="event-actions">
+                            <button class="register-btn" onclick="registerEvent(this)">Register</button>
+                            <button class="wishlist-btn" onclick="toggleWishlist(this)">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                        </div>
+                        <div class="event-participants">
+                            <i class="fas fa-users"></i>
+                            <span>34 registered</span>
+                            <div class="participants-avatars">
+                                <div class="participant-avatar">L</div>
+                                <div class="participant-avatar">R</div>
+                                <div class="participant-avatar">I</div>
+                                <div class="participant-avatar">+</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="event-card" data-category="social">
+                    <div class="event-image">
+                        <i class="fas fa-heart"></i>
+                        <div class="event-status upcoming">Upcoming</div>
+                    </div>
+                    <div class="event-content">
+                        <div class="event-category">Social</div>
+                        <h3 class="event-title">Community Service Drive</h3>
+                        <div class="event-organizer">
+                            <i class="fas fa-users"></i>
+                            <span>NSS Club</span>
+                        </div>
+                        <div class="event-details">
+                            <div class="event-detail">
+                                <i class="fas fa-calendar"></i>
+                                <span>April 12</span>
+                            </div>
+                            <div class="event-detail">
+                                <i class="fas fa-clock"></i>
+                                <span>8:00 AM</span>
+                            </div>
+                            <div class="event-detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Local Villages</span>
+                            </div>
+                            <div class="event-detail">
+                                <i class="fas fa-hands-helping"></i>
+                                <span>Volunteer</span>
+                            </div>
+                        </div>
+                        <p class="event-description">
+                            Make a difference in the community! Join us for a day of service, helping local villages with education and healthcare.
+                        </p>
+                        <div class="event-actions">
+                            <button class="register-btn" onclick="registerEvent(this)">Volunteer</button>
+                            <button class="wishlist-btn" onclick="toggleWishlist(this)">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                        </div>
+                        <div class="event-participants">
+                            <i class="fas fa-users"></i>
+                            <span>78 volunteers</span>
+                            <div class="participants-avatars">
+                                <div class="participant-avatar">H</div>
+                                <div class="participant-avatar">G</div>
+                                <div class="participant-avatar">J</div>
+                                <div class="participant-avatar">+</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Past Events Gallery -->
+    <section class="past-events">
+        <div class="container">
+            <h2 class="section-title">Past Events Gallery</h2>
+            <p class="section-subtitle">Relive the amazing moments from our previous events</p>
+            
+            <div class="gallery-grid">
+                <div class="gallery-item" data-title="Tech Fest 2023">
+                    <i class="fas fa-laptop"></i>
+                </div>
+                <div class="gallery-item" data-title="Cultural Night">
+                    <i class="fas fa-theater-masks"></i>
+                </div>
+                <div class="gallery-item" data-title="Sports Day">
+                    <i class="fas fa-medal"></i>
+                </div>
+                <div class="gallery-item" data-title="Art Exhibition">
+                    <i class="fas fa-palette"></i>
+                </div>
+                <div class="gallery-item" data-title="Music Concert">
+                    <i class="fas fa-music"></i>
+                </div>
+                <div class="gallery-item" data-title="Dance Competition">
+                    <i class="fas fa-dancing"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Nebula Nexus</h3>
+                    <p>Connecting students through amazing club experiences at Manipal University.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Dashboard</a></li>
+                        <li><a href="profile.html">Profile</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Follow Us</h4>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Nebula Nexus - Manipal University. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loader">
+            <div class="orbit">
+                <div class="planet"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script>
+        // Events page functionality
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeEventFilters();
+            initializeSearch();
+        });
+
+        function initializeEventFilters() {
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const eventCards = document.querySelectorAll('.event-card, .featured-event');
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // Update active filter
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+
+                    const filter = btn.dataset.filter;
+                    
+                    // Filter events
+                    eventCards.forEach(card => {
+                        if (filter === 'all' || card.dataset.category === filter) {
+                            card.style.display = '';
+                            card.style.animation = 'fadeInUp 0.5s ease-out';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        }
+
+        function initializeSearch() {
+            const searchInput = document.getElementById('searchInput');
+            let searchTimeout;
+
+            searchInput.addEventListener('input', () => {
+                clearTimeout(searchTimeout);
+                searchTimeout = setTimeout(() => {
+                    searchEvents();
+                }, 300);
+            });
+        }
+
+        function searchEvents() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const eventCards = document.querySelectorAll('.event-card, .featured-event');
+
+            eventCards.forEach(card => {
+                const title = card.querySelector('.event-title, h2').textContent.toLowerCase();
+                const description = card.querySelector('.event-description, p').textContent.toLowerCase();
+                const organizer = card.querySelector('.event-organizer span')?.textContent.toLowerCase() || '';
+
+                if (title.includes(searchTerm) || description.includes(searchTerm) || organizer.includes(searchTerm)) {
+                    card.style.display = '';
+                    card.style.animation = 'fadeInUp 0.5s ease-out';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        function registerEvent(button) {
+            const isRegistered = button.classList.contains('registered');
+            
+            if (isRegistered) {
+                button.innerHTML = '<i class="fas fa-times"></i> Unregister';
+                button.classList.remove('registered');
+                button.style.background = 'var(--error-color)';
+                
+                setTimeout(() => {
+                    button.innerHTML = 'Register';
+                    button.style.background = '';
+                }, 1000);
+            } else {
+                button.innerHTML = '<i class="fas fa-check"></i> Registered';
+                button.classList.add('registered');
+                
+                // Show success animation
+                createSuccessParticles(button);
+            }
+        }
+
+        function toggleWishlist(button) {
+            button.classList.toggle('active');
+            
+            if (button.classList.contains('active')) {
+                button.style.animation = 'heartbeat 0.6s ease-in-out';
+                createHeartParticles(button);
+            }
+            
+            setTimeout(() => {
+                button.style.animation = '';
+            }, 600);
+        }
+
+        function createSuccessParticles(element) {
+            const rect = element.getBoundingClientRect();
+            const colors = ['#10b981', '#059669', '#047857'];
+            
+            for (let i = 0; i < 8; i++) {
+                const particle = document.createElement('div');
+                particle.style.cssText = `
+                    position: fixed;
+                    width: 8px;
+                    height: 8px;
+                    background: ${colors[Math.floor(Math.random() * colors.length)]};
+                    border-radius: 50%;
+                    pointer-events: none;
+                    z-index: 9999;
+                    left: ${rect.left + rect.width / 2}px;
+                    top: ${rect.top + rect.height / 2}px;
+                `;
+                
+                document.body.appendChild(particle);
+                
+                const angle = (i / 8) * Math.PI * 2;
+                const velocity = 80 + Math.random() * 40;
+                
+                particle.animate([
+                    { transform: 'translate(0, 0) scale(1)', opacity: 1 },
+                    { 
+                        transform: `translate(${Math.cos(angle) * velocity}px, ${Math.sin(angle) * velocity}px) scale(0)`, 
+                        opacity: 0 
+                    }
+                ], {
+                    duration: 1000,
+                    easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
+                }).onfinish = () => particle.remove();
+            }
+        }
+
+        function createHeartParticles(element) {
+            const rect = element.getBoundingClientRect();
+            
+            for (let i = 0; i < 6; i++) {
+                const heart = document.createElement('div');
+                heart.innerHTML = '❤️';
+                heart.style.cssText = `
+                    position: fixed;
+                    font-size: 16px;
+                    pointer-events: none;
+                    z-index: 9999;
+                    left: ${rect.left + rect.width / 2}px;
+                    top: ${rect.top + rect.height / 2}px;
+                `;
+                
+                document.body.appendChild(heart);
+                
+                heart.animate([
+                    { transform: 'translate(0, 0) scale(1)', opacity: 1 },
+                    { 
+                        transform: `translate(${(Math.random() - 0.5) * 100}px, ${-50 - Math.random() * 50}px) scale(0)`, 
+                        opacity: 0 
+                    }
+                ], {
+                    duration: 1500,
+                    easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
+                }).onfinish = () => heart.remove();
+            }
+        }
+
+        // Add CSS for heartbeat animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes heartbeat {
+                0%, 100% { transform: scale(1); }
+                50% { transform: scale(1.2); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
