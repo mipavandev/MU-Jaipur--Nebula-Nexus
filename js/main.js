@@ -34,6 +34,7 @@ class ThemeManager {
 
     initTheme() {
         const savedTheme = localStorage.getItem('theme') || 'light';
+        console.log('Initializing theme:', savedTheme);
         this.setTheme(savedTheme);
     }
 
@@ -52,6 +53,7 @@ class ThemeManager {
 
     toggleTheme() {
         const newTheme = AppState.currentTheme === 'light' ? 'dark' : 'light';
+        console.log('Toggling theme from', AppState.currentTheme, 'to', newTheme);
         this.setTheme(newTheme);
         
         // Add celebration effect
@@ -513,6 +515,10 @@ window.openClubPage = function(clubPage) {
 // Initialize Application
 document.addEventListener('DOMContentLoaded', () => {
     console.log('🌌 Nebula Nexus initialized!');
+    
+    // Add debugging for theme toggle
+    const themeBtn = document.getElementById('themeToggle');
+    console.log('Theme button found:', !!themeBtn);
     
     // Initialize all managers
     new ThemeManager();
