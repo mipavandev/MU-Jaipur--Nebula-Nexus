@@ -367,38 +367,52 @@
         
         .gallery-item {
             aspect-ratio: 1;
-            background: var(--primary-gradient);
             border-radius: var(--radius-lg);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            color: var(--text-inverse);
             cursor: pointer;
             transition: all var(--transition-normal);
             position: relative;
             overflow: hidden;
         }
         
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform var(--transition-normal);
+        }
+        
         .gallery-item:hover {
             transform: scale(1.05);
         }
         
-        .gallery-item::after {
-            content: attr(data-title);
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        .gallery-overlay {
             position: absolute;
             bottom: 0;
             left: 0;
             right: 0;
-            background: rgba(0, 0, 0, 0.7);
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
             color: white;
-            padding: 1rem;
-            font-size: 1rem;
+            padding: 1.5rem 1rem 1rem;
             transform: translateY(100%);
             transition: transform var(--transition-normal);
         }
         
-        .gallery-item:hover::after {
+        .gallery-overlay h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        
+        .gallery-overlay p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        .gallery-item:hover .gallery-overlay {
             transform: translateY(0);
         }
         
@@ -440,14 +454,9 @@
             </div>
             <ul class="nav-menu">
                 <li class="nav-item"><a href="index.html" class="nav-link">Dashboard</a></li>
+                <li class="nav-item"><a href="#clubs" class="nav-link">Clubs</a></li>
                 <li class="nav-item"><a href="profile.html" class="nav-link">Profile</a></li>
                 <li class="nav-item"><a href="events.html" class="nav-link active">Events</a></li>
-                <li class="nav-item"><a href="#" class="nav-link">Clubs</a></li>
-                <li class="nav-item">
-                    <button class="theme-toggle" id="themeToggle">
-                        <i class="fas fa-moon"></i>
-                    </button>
-                </li>
             </ul>
             <div class="hamburger">
                 <span></span>
@@ -841,22 +850,46 @@
             
             <div class="gallery-grid">
                 <div class="gallery-item" data-title="Tech Fest 2023">
-                    <i class="fas fa-laptop"></i>
+                    <img src="https://images.unsplash.com/photo-1605810230434-7631ac76ec81?w=400&h=300&fit=crop" alt="Tech Fest 2023" />
+                    <div class="gallery-overlay">
+                        <h3>Tech Fest 2023</h3>
+                        <p>Innovation meets creativity</p>
+                    </div>
                 </div>
                 <div class="gallery-item" data-title="Cultural Night">
-                    <i class="fas fa-theater-masks"></i>
+                    <img src="https://images.unsplash.com/photo-1470813740244-df37b8c1edcb?w=400&h=300&fit=crop" alt="Cultural Night" />
+                    <div class="gallery-overlay">
+                        <h3>Cultural Night</h3>
+                        <p>Celebrating our diversity</p>
+                    </div>
                 </div>
                 <div class="gallery-item" data-title="Sports Day">
-                    <i class="fas fa-medal"></i>
+                    <img src="https://images.unsplash.com/photo-1500673922987-e212871fec22?w=400&h=300&fit=crop" alt="Sports Day" />
+                    <div class="gallery-overlay">
+                        <h3>Sports Day</h3>
+                        <p>Unleashing the athlete within</p>
+                    </div>
                 </div>
                 <div class="gallery-item" data-title="Art Exhibition">
-                    <i class="fas fa-palette"></i>
+                    <img src="https://images.unsplash.com/photo-1523712999610-f77fbcfc3843?w=400&h=300&fit=crop" alt="Art Exhibition" />
+                    <div class="gallery-overlay">
+                        <h3>Art Exhibition</h3>
+                        <p>Colors of imagination</p>
+                    </div>
                 </div>
                 <div class="gallery-item" data-title="Music Concert">
-                    <i class="fas fa-music"></i>
+                    <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=300&fit=crop" alt="Music Concert" />
+                    <div class="gallery-overlay">
+                        <h3>Music Concert</h3>
+                        <p>Harmony in motion</p>
+                    </div>
                 </div>
                 <div class="gallery-item" data-title="Dance Competition">
-                    <i class="fas fa-dancing"></i>
+                    <img src="https://images.unsplash.com/photo-1504609813442-a8924e83f76e?w=400&h=300&fit=crop" alt="Dance Competition" />
+                    <div class="gallery-overlay">
+                        <h3>Dance Competition</h3>
+                        <p>Rhythm and grace combined</p>
+                    </div>
                 </div>
             </div>
         </div>
