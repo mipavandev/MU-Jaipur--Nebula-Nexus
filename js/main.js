@@ -42,8 +42,12 @@ class ThemeManager {
         document.documentElement.setAttribute('data-theme', theme);
         localStorage.setItem('theme', theme);
         
-        const icon = elements.themeToggle.querySelector('i');
-        icon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+        if (elements.themeToggle) {
+            const icon = elements.themeToggle.querySelector('i');
+            if (icon) {
+                icon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+            }
+        }
     }
 
     toggleTheme() {
@@ -92,7 +96,9 @@ class ThemeManager {
     }
 
     bindEvents() {
-        elements.themeToggle?.addEventListener('click', () => this.toggleTheme());
+        if (elements.themeToggle) {
+            elements.themeToggle.addEventListener('click', () => this.toggleTheme());
+        }
     }
 }
 
